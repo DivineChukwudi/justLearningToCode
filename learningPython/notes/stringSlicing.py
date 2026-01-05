@@ -40,7 +40,7 @@ website = 'http://google.com'
 web2 = 'http://spaceX.com'
 #[start:stop:step] we seperate with coma
 #every character has both a positive and negative index so because of that we can use negative indexing in slicing to take out the '.com' in this manner since -1 = 'm', -2 = 'o', -3 = 'c' and -4 = '.' and so on
-slice = slice(7, -4)
+slice = slice(7, -4) #7, 13 works the same
 print('The domain name is: ' + website[slice])
 print('The domain name is: ' + web2[slice])
 
