@@ -1,7 +1,21 @@
 {
+    "redhat.telemetry.enabled": true,
+    "javafx.sceneBuilder.path": "C:/Path/To/SceneBuilder.exe",
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "java.import.gradle.enabled": false,
-    "java.import.maven.enabled": false
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "C:/Program Files/Java/javafx-sdk-25.0.2/lib/*.jar"
+    ],
+    "java.project.resourceFilters": [
+        "node_modules",
+        ".git"
+    ],
+    "java.debug.settings.vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-25.0.2/lib\" --add-modules javafx.controls,javafx.fxml",
+    "code-runner.executorMap": {
+        "java": "echo 'Please use F5 or the Run and Debug panel for JavaFX applications'"
+    },
+    "workbench.iconTheme": "file-icons",
+    "workbench.colorTheme": "LaserWave",
+    "java.debug.settings.onBuildFailureProceed": true
 }

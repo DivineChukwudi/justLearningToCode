@@ -15,8 +15,8 @@ def hello():
     
     words = ["Wait", "for", "it", "..."]
     
-    for i in range(5, 0, -1):
-        print(words[i])
+    for i in range(5):
+        print(words)
         time.sleep(2)
         print("Bomb Venezuela!!!")
    

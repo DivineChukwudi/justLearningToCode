@@ -10,7 +10,7 @@ public class phoneNumber {
         first = rd.nextInt(7);
         second = rd.nextInt(7);
         third = rd.nextInt(7);
-        middle =  rd.nextInt(100, 742);
+        middle =  rd.nextInt(100);
         last = rd.nextInt(9999);
 
         System.out.println(first +""+ second +""+ third + "-" + middle + "-" + last);

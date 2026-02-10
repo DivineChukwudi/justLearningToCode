@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch JavaFX",
+            "request": "launch",
+            "mainClass": "form",
+            "vmArgs": "--module-path \"C:\\Program Files\\Java\\javafx-sdk-25.0.2\\lib\" --add-modules javafx.controls,javafx.fxml --enable-preview --enable-native-access=javafx.graphics",
+            "classPaths": [
+                "${workspaceFolder}/bin",
+                "${workspaceFolder}/lib/*"
+            ],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

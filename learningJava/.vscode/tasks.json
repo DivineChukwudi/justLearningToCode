@@ -1,0 +1,14 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run JavaFX",
+            "type": "shell",
+            "command": "cd src && javac --module-path \"C:\\Program Files\\Java\\javafx-sdk-25.0.2\\lib\" --add-modules javafx.controls,javafx.fxml form.java && cd .. && java --module-path \"C:\\Program Files\\Java\\javafx-sdk-25.0.2\\lib\" --add-modules javafx.controls,javafx.fxml --enable-preview --enable-native-access=javafx.graphics -cp src form",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
