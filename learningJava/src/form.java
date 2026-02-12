@@ -9,6 +9,7 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Button;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class form extends Application {
             String comment = commentField.getText();
             
             if (!name.isEmpty() && !surname.isEmpty()) {
-                saveToJSON(name, surname, comment);
+                saveToNotepad(name, surname, comment);
                 
                 nameField.clear();
                 surnameField.clear();
@@ -68,39 +69,30 @@ public class form extends Application {
         }));
     }
 
-    private void saveToJSON(String name, String surname, String comment) {
-        String filePath = "database.json";
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        List<User> users = new ArrayList<>();
+   
+    private void saveToNotepad(String name, String surname, String comment) {
+    String filePath = "database.txt";
 
-        try {
-            
-            File file = new File(filePath);
-            if (file.exists()) {
-                FileReader reader = new FileReader(filePath);
-                Type listType = new TypeToken<ArrayList<User>>(){}.getType();
-                users = gson.fromJson(reader, listType);
-                reader.close();
-                
-                if (users == null) {
-                    users = new ArrayList<>();
-                }
-            }
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+        writer.write("Name: " + name);
+        writer.newLine();
+        writer.write("Surname: " + surname);
+        writer.newLine();
+        writer.write("Comment: " + comment);
+        writer.newLine();
+        writer.write("Timestamp: " + System.currentTimeMillis());
+        writer.newLine();
+        writer.write("----------------------------");
+        writer.newLine();
 
-        
-            User newUser = new User(name, surname, comment, System.currentTimeMillis());
-            users.add(newUser);
+        System.out.println("Successfully wrote to file");
 
-            
-            FileWriter writer = new FileWriter(filePath);
-            gson.toJson(users, writer);
-            writer.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    } catch (IOException e) {
+        System.out.println("An error occurred while trying to save information to file.");
+        e.printStackTrace();
     }
-    
+}
+
     
     static class User {
         String name;

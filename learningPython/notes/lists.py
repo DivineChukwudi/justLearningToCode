@@ -1,3 +1,4 @@
+#[] = ordered and changable, Allows duplicates
 # list = used to store multiple items in a single variable
 
 food = ['pizza', 'hamburger', 'hotdog', 'sphagetti', 'pudding']

@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "form",
+            "request": "launch",
+            "mainClass": "form",
+            "projectName": "learnToCode_c92d5b70"
+        },
+        {
+            "type": "java",
+            "name": "printf",
+            "request": "launch",
+            "mainClass": "notes.printf",
+            "projectName": "learnToCode_c92d5b70"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
