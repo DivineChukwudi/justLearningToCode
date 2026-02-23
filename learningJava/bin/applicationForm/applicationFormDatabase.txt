@@ -1,0 +1,22 @@
+Student Number: 901019707
+Phone Number: 26662017737
+Course Name: INFORMATION TECHNOLOGY
+Name: Divine
+Surname: Chukwudi
+Email: chukwudidivine20@gmail.com
+Timestamp: 2026-02-17 08:53:32
+----------------------------
+Student Number: 901019707
+Name: Divine
+Surname: Chukwudi
+Email: chukwudidivine20@gmail.com
+Phone Number: 26662017737
+Address: Mswakeli
+City: Maseru
+Postal Code: 0100
+Date of Birth: 2004-06-20
+Gender: Male
+ID Number: 12498569
+Course Name: Data Science
+Timestamp: 2026-02-17 09:33:43
+----------------------------

@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "resturantSystem",
+            "request": "launch",
+            "mainClass": "resturantSystem.resturantSystem",
+            "projectName": "learnToCode_c92d5b70"
+        },
+        {
+            "type": "java",
             "name": "form",
             "request": "launch",
             "mainClass": "form",

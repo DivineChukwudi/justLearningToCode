@@ -34,7 +34,7 @@ for x in questions:
         print("CORRECT!")
     else:
         print("WRONG!")
-        print(f"The correct answert was {answers[questionNum]}")
+        print(f"The correct answer was {answers[questionNum]}")
     time.sleep(1)
     questionNum += 1
 

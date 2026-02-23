@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.TextField?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resturantSystem.controllers.resturantSystemController">
+   <children>
+      <HBox>
+         <children>
+            <Label fx:id="titleLabel" text="RESTURANT ETERN" />
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <VBox>
+               <children>
+                  <Label fx:id="dinnerLabel" text="Dinner" />
+                  <VBox fx:id="dinnerVBox" spacing="8">
+                      <CheckBox fx:id="riceBeefCheckBox" mnemonicParsing="false" text="Rice-Beef" />
+                      <CheckBox fx:id="riceChickenCheckBox" mnemonicParsing="false" text="Rice-Chicken" />
+                      <CheckBox fx:id="macaroniBeefCheckBox" mnemonicParsing="false" text="Macaroni-Beef" />
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox />
+            <VBox>
+               <children>
+                  <Label fx:id="dessertLabel" text="Dessert" />
+                  <VBox fx:id="radioButtons" spacing="8">
+                      <RadioButton fx:id="custardJellyRadio" mnemonicParsing="false" text="Custard and Jelly" />
+                      <RadioButton fx:id="chocolateCakeRadio" mnemonicParsing="false" text="Chocolate cake slice" />
+                      <RadioButton fx:id="cupcakesRadio" mnemonicParsing="false" text="Cupcakes" />
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox >
+         <Label fx:id="drinksLabel" text="Drinks" />
+         <HBox>
+            <children>
+               <ComboBox fx:id="drinkComboBox">
+                  <items>
+                     <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Fanta"/>
+                        <String fx:value="Coke"/>
+                        <String fx:value="Sprite"/>
+                        <String fx:value="Pepsi"/>
+                        <String fx:value="7up"/>
+                        <String fx:value="Mirinda"/>
+                        <String fx:value="Mountain Dew"/>
+                        <String fx:value="Lipton"/>
+                     </FXCollections>
+                  </items>
+               </ComboBox>
+            </children>
+         </HBox>
+      </HBox>
+       <VBox>
+         <children>
+            <HBox>
+               <children>
+                   <Label fx:id="totalLabel" text= "Total Amount: " /> 
+                  <TextField fx:id= "totalAmountTextField" promptText= "M0.00" editable="false" /> 
+               </children>
+            </HBox>
+         </children>
+         <children>
+            <HBox>
+               <children>
+                  <Label fx:id="amountTenderedLabel" text= "Amount Received: " />
+                  <TextField fx:id= "amountTenderedTextField" promptText= "M0.00" />
+               </children>
+            </HBox>
+         </children>
+         <children>
+            <HBox>
+               <children>
+                 <Label fx:id= "changeLabel" text= "Change: " />
+                 <TextField fx:id= "changeTextField" promptText= "M0.00" editable="false"/>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox prefHeight="111.0" prefWidth="862.0">
+         <children>
+            <VBox>
+               <children>
+                  <Button fx:id="totalAmountButton" mnemonicParsing="false" text="Total Amount" onAction="#handleTotalAmount"/>
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Button fx:id="changeButton" mnemonicParsing="false" text="Change" onAction="#handleChange"/>
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Button fx:id="resetButton" mnemonicParsing="false" text="Reset" onAction="#handleReset"/>
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Button fx:id="exitButton" mnemonicParsing="false" text="Exit" onAction="#handleExit"/>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+     
+   </children>
+</VBox>

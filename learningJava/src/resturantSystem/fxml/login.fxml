@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="mainRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resturantSystem.controllers.loginController">
+   <children>
+      <HBox fx:id="headingBox" prefHeight="39.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="headingFocus" text="ETERN RESTURANT" />
+         </children>
+        </HBox>
+
+        <HBox fx:id="secHeading" prefHeight="3.0" prefWidth="600.0">
+            <children>
+                <Label fx:id="secHeadingFocus" text="where tradition meets taste" />
+            </children>
+        </HBox>
+      <VBox fx:id="detailBox">
+         <children>
+         <HBox fx:id="usernameBox">
+            <children>
+               <Label fx:id="usernanmeLabel" text="Username:" />
+               <TextField fx:id="usernameField" promptText="Enter username" />
+            </children>
+            </HBox>
+            <HBox fx:id="passBox">
+               <children>
+                  <Label fx:id="passLabel" text="Password:" />
+                     <PasswordField fx:id="passField" promptText="Enter password" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox fx:id="buttonBox" prefHeight="39.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="loginFocus" mnemonicParsing="false" text="Login" onAction= "#loginUser" />
+            <Button fx:id="cancelFocus" mnemonicParsing="false" text="Cancel" onAction = "#cancelUser" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
