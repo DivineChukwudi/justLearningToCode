@@ -3,6 +3,104 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MainApp",
+            "request": "launch",
+            "mainClass": "tt_logistics.MainApp",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
+            "name": "MainPOS",
+            "request": "launch",
+            "mainClass": "MainPOS",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
+            "name": "LoginScreen",
+            "request": "launch",
+            "mainClass": "LoginScreen",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
+            "name": "MainPOS",
+            "request": "launch",
+            "mainClass": "restaurantSystem.MainPOS",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
+            "name": "MainPOS",
+            "request": "launch",
+            "mainClass": "restaurantSystem/restaurantSystem.MainPOS",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
+            "name": "LoginScreen",
+            "request": "launch",
+            "mainClass": "restaurantSystem.LoginScreen",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "sefalana.Main",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
+            "name": "OPTIMAL",
+            "request": "launch",
+            "mainClass": "computerArchitecture.OPTIMAL",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
+            "name": "CLOCK",
+            "request": "launch",
+            "mainClass": "computerArchitecture.CLOCK",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
+            "name": "LRU",
+            "request": "launch",
+            "mainClass": "computerArchitecture.LRU",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
+            "name": "FIFO",
+            "request": "launch",
+            "mainClass": "computerArchitecture.FIFO",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
+            "name": "periAreaCalc",
+            "request": "launch",
+            "mainClass": "periAreaCalc.periAreaCalc",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
+            "name": "tempConverter",
+            "request": "launch",
+            "mainClass": "tempConverter.tempConverter",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
+            "name": "kineticEnergy",
+            "request": "launch",
+            "mainClass": "kineticEnergy.kineticEnergy",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
             "name": "resturantSystem",
             "request": "launch",
             "mainClass": "resturantSystem.resturantSystem",

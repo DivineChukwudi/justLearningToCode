@@ -1,0 +1,54 @@
+.root {
+    -fx-background-color: red;
+}
+
+#rootID {
+    -fx-background-color: #ff0000;
+    -fx-padding: 30;
+}
+
+
+#titleLabel {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+
+.label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+}
+
+
+.text-field {
+    -fx-background-color: #3a3a55;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #bbbbbb;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 8;
+    -fx-pref-width: 250;
+}
+
+
+.button {
+    -fx-background-color: #4a90e2;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #357abd;
+}
+
+#exitButton {
+    -fx-background-color: #d9534f;
+}
+
+#exitButton:hover {
+    -fx-background-color: #c9302c;
+}

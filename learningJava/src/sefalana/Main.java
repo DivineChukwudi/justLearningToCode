@@ -1,4 +1,5 @@
-package calculator;
+package sefalana;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,11 +10,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        
-        Parent root = FXMLLoader.load(getClass().getResource("/calculator/fxml/calculator.fxml"));
-        primaryStage.setTitle("Calculator");
-        primaryStage.setScene(new Scene(root));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/inventory.fxml"));
+        Scene scene = new Scene(root, 650, 500);
+        scene.getStylesheets().add(getClass().getResource("css/style.css").toExternalForm());
+        primaryStage.setTitle("Sefalana Product Inventory");
         primaryStage.setResizable(false);
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+
+<VBox fx:id="rootID"
+      maxHeight="-Infinity"
+      maxWidth="-Infinity"
+      minHeight="-Infinity"
+      minWidth="-Infinity"
+      prefHeight="400.0"
+      prefWidth="600.0"
+      spacing="20"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="kineticEnergy.controllers.kineticEnergyController"
+      stylesheets="@/kineticEnergy/css/kineticEnergyCalc.css">
+
+    <children>
+
+    
+        <HBox fx:id="titleContainer" alignment="CENTER">
+            <children>
+                <Label fx:id="titleLabel" text="Kinetic Energy Calculator" />
+            </children>
+        </HBox>
+
+        
+        <VBox fx:id="mainContainer" spacing="15" alignment="CENTER">
+
+            <Label fx:id="massLabel" text="Mass" />
+            <TextField fx:id="massField" promptText="Enter Mass:" />
+
+            <Label fx:id="velocityLabel" text="Velocity" />
+            <TextField fx:id="velocityField" promptText="Enter Velocity:" />
+
+            <Label fx:id="outputLabel" text="Output" />
+            <TextField fx:id="outputField" editable="false" promptText="Kinetic Energy:" />
+
+            <Button fx:id="calculateButton"
+                    text="Calculate"
+                    onAction="#calculateKineticEnergy" />
+
+            <Button fx:id="clearButton"
+                    text="Clear"
+                    onAction="#clearFields" />
+
+            <Button fx:id="exitButton"
+                    text="Exit"
+                    onAction="#exitApplication" />
+
+        </VBox>
+
+    </children>
+</VBox>

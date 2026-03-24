@@ -1,21 +1,26 @@
 {
     "redhat.telemetry.enabled": true,
     "javafx.sceneBuilder.path": "C:/Path/To/SceneBuilder.exe",
-    "java.project.sourcePaths": ["src"],
+    "java.project.sourcePaths": [
+        "src"
+    ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "C:/Program Files/Java/openjfx-23.0.1_windows-x64_bin-sdk/javafx-sdk-23.0.1/lib/*.jar"
+        "C:/Program Files/Java/openjfx-25.0.2_windows-x64_bin-sdk/javafx-sdk-25.0.2/lib/*.jar"
     ],
     "java.project.resourceFilters": [
         "node_modules",
         ".git"
     ],
-    "java.debug.settings.vmArgs": "--module-path \"C:/Program Files/Java/openjfx-23.0.1_windows-x64_bin-sdk/javafx-sdk-23.0.1/lib\" --add-modules javafx.controls,javafx.fxml",
+    "java.debug.settings.vmArgs": "--module-path \"C:/Program Files/Java/openjfx-25.0.2_windows-x64_bin-sdk/javafx-sdk-25.0.2/lib\" --add-modules javafx.controls,javafx.fxml,javafx.media",
     "code-runner.executorMap": {
         "java": "echo 'Please use F5 or the Run and Debug panel for JavaFX applications'"
     },
     "workbench.iconTheme": "file-icons",
     "workbench.colorTheme": "LaserWave",
-    "java.debug.settings.onBuildFailureProceed": true
+    "java.debug.settings.onBuildFailureProceed": true,
+    "chat.tools.terminal.autoApprove": {
+        "javac": true
+    }
 }

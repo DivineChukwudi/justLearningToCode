@@ -43,8 +43,7 @@
         <Button text="3"   GridPane.columnIndex="2" GridPane.rowIndex="3" onAction="#onNumber"   maxWidth="Infinity" prefHeight="72" styleClass="btn-number"/>
         <Button text="+"   GridPane.columnIndex="3" GridPane.rowIndex="3" onAction="#onOperator" maxWidth="Infinity" prefHeight="72" styleClass="btn-operator"/>
 
-        <Button text="0"   GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2"
-                onAction="#onNumber" maxWidth="Infinity" prefHeight="72" styleClass="btn-zero"/>
+        <Button text="0"   GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2" onAction="#onNumber" maxWidth="Infinity" prefHeight="72" styleClass="btn-zero"/>
         <Button text="."   GridPane.columnIndex="2" GridPane.rowIndex="4" onAction="#onDot"      maxWidth="Infinity" prefHeight="72" styleClass="btn-number"/>
         <Button text="="   GridPane.columnIndex="3" GridPane.rowIndex="4" onAction="#onEquals"   maxWidth="Infinity" prefHeight="72" styleClass="btn-equals"/>
     </GridPane>

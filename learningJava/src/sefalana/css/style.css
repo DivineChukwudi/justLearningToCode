@@ -1,0 +1,94 @@
+/* ── Root ─────────────────────────────────────────────────── */
+.root-pane {
+    -fx-background-color: #d4d0c8;   /* Classic Windows-grey to match screenshot */
+}
+
+/* ── Form labels ──────────────────────────────────────────── */
+.form-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #000000;
+}
+
+/* ── Text fields ──────────────────────────────────────────── */
+.form-field {
+    -fx-pref-width: 200px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #7f9db9;
+    -fx-border-width: 1px;
+    -fx-font-size: 12px;
+    -fx-padding: 3 5 3 5;
+}
+
+.form-field:focused {
+    -fx-border-color: #316ac5;
+}
+
+/* ── ComboBox ─────────────────────────────────────────────── */
+.form-combo {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #7f9db9;
+    -fx-border-width: 1px;
+    -fx-font-size: 12px;
+}
+
+.form-combo .list-cell {
+    -fx-font-size: 12px;
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn {
+    -fx-background-color: #ece9d8;
+    -fx-border-color: #7f9db9 #404040 #404040 #7f9db9;
+    -fx-border-width: 1px;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+    -fx-padding: 4 10 4 10;
+}
+
+.btn:hover {
+    -fx-background-color: #dde8f7;
+}
+
+.btn:pressed {
+    -fx-background-color: #c0cfe8;
+    -fx-border-color: #404040 #7f9db9 #7f9db9 #404040;
+}
+
+/* ── TableView ────────────────────────────────────────────── */
+.product-table {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #7f9db9;
+    -fx-border-width: 1px;
+    -fx-font-size: 12px;
+}
+
+.product-table .column-header {
+    -fx-background-color: #ece9d8;
+    -fx-border-color: #7f9db9;
+    -fx-border-width: 0 1 1 0;
+}
+
+.product-table .column-header .label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #000000;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.product-table .table-row-cell {
+    -fx-background-color: #ffffff;
+}
+
+.product-table .table-row-cell:selected {
+    -fx-background-color: #316ac5;
+    -fx-text-fill: #ffffff;
+}
+
+.product-table .table-row-cell:selected .text {
+    -fx-fill: #ffffff;
+}
+
+.product-table .table-cell {
+    -fx-border-color: transparent #e0e0e0 transparent transparent;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 3 5 3 5;
+}
