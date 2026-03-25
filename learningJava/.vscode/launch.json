@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TTLogisticsApp",
+            "request": "launch",
+            "mainClass": "ttLogistics.TTLogisticsApp",
+            "projectName": "learningJava_63e1be9f"
+        },
+        {
+            "type": "java",
             "name": "MainApp",
             "request": "launch",
             "mainClass": "tt_logistics.MainApp",
