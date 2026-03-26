@@ -57,7 +57,7 @@ public class MaintenanceController {
         UIFactory.styleControl(vehicleCombo);
         loadVehicleCombo();
 
-        // Show total cost using the UDF when combo selection changes
+        // FIX: calls vehicle_total_maintenance (renamed)
         vehicleCombo.setOnAction(e -> refreshTotalCost());
 
         dateField = new TextField(); dateField.setPromptText("YYYY-MM-DD");
@@ -127,7 +127,8 @@ public class MaintenanceController {
         if (sel == null) return;
         int vid = Integer.parseInt(sel.split(" \\| ")[0].trim());
         try (PreparedStatement ps = DatabaseConnection.getConnection()
-                .prepareStatement("SELECT vehicleTotalMaintenance(?)")) {
+                // FIX: renamed function → vehicle_total_maintenance
+                .prepareStatement("SELECT vehicle_total_maintenance(?)")) {
             ps.setInt(1, vid);
             ResultSet rs = ps.executeQuery();
             if (rs.next())
@@ -144,7 +145,8 @@ public class MaintenanceController {
 
         int vid = Integer.parseInt(vSel.split(" \\| ")[0].trim());
         try (CallableStatement cs = DatabaseConnection.getConnection()
-                .prepareCall("{CALL recordVehicleMaintenance(?,?,?,?)}")) {
+                // FIX: renamed procedure → record_vehicle_maintenance
+                .prepareCall("{CALL record_vehicle_maintenance(?,?,?,?)}")) {
             cs.setInt(1, vid);
             cs.setString(2, dateField.getText().trim());
             cs.setString(3, typeField.getText().trim().isEmpty() ? "General" : typeField.getText().trim());

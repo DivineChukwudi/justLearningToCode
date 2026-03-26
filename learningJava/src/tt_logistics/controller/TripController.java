@@ -46,7 +46,6 @@ public class TripController {
             root.setCenter(buildDriverView());
             app.getPrimaryStage().setScene(new Scene(root, 980, 640));
             app.getPrimaryStage().setTitle("TT Logistics — My Deliveries");
-            // Check for pending job notifications on open
             checkAndShowNotifications();
         } else {
             root.setTop(UIFactory.topBar("Trip / Delivery Management", "#F5A623", app::showDashboard));
@@ -65,7 +64,7 @@ public class TripController {
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // NOTIFICATION POPUP — shown to driver on opening their portal
+    // NOTIFICATION POPUP
     // ═══════════════════════════════════════════════════════════════════════════
     private void checkAndShowNotifications() {
         int personID = Session.get().getPersonID();
@@ -83,7 +82,6 @@ public class TripController {
         try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql)) {
             ps.setInt(1, personID);
             ResultSet rs = ps.executeQuery();
-
             while (rs.next()) {
                 int notifID    = rs.getInt(1);
                 int assignID   = rs.getInt(2);
@@ -92,7 +90,6 @@ public class TripController {
                 String dest    = rs.getString(6);
                 String date    = rs.getString(7) == null ? "TBD" : rs.getString(7);
                 String role    = rs.getString(8);
-
                 showJobOfferDialog(notifID, assignID, deliveryID, origin, dest, date, role);
             }
             rs.close();
@@ -103,8 +100,6 @@ public class TripController {
 
     private void showJobOfferDialog(int notifID, int assignID, int deliveryID,
                                     String origin, String dest, String date, String role) {
-
-        // Custom styled dialog
         Stage dialogStage = new javafx.stage.Stage();
         dialogStage.setTitle("New Job Assignment");
         dialogStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
@@ -114,7 +109,6 @@ public class TripController {
         root.setStyle("-fx-background-color: #0D1B2A;");
         root.setAlignment(Pos.TOP_CENTER);
 
-        // Header
         Label icon = new Label("📦");
         icon.setFont(Font.font(42));
 
@@ -126,10 +120,8 @@ public class TripController {
         sub.setStyle("-fx-text-fill: #4A6FA5; -fx-font-family: 'Segoe UI'; -fx-font-size: 12;");
         sub.setWrapText(true);
 
-        // Job details card
         VBox details = UIFactory.card(20, 16);
         details.setMaxWidth(400);
-
         details.getChildren().addAll(
             detailRow("Delivery #",  String.valueOf(deliveryID)),
             detailRow("From",        origin),
@@ -138,8 +130,7 @@ public class TripController {
             detailRow("Your Role",   role.toUpperCase())
         );
 
-        // Buttons
-        Button acceptBtn = UIFactory.primaryBtn("✓  Accept Job", "#00C896");
+        Button acceptBtn  = UIFactory.primaryBtn("✓  Accept Job", "#00C896");
         Button declineBtn = UIFactory.dangerBtn("✕  Decline Job");
         acceptBtn.setPrefWidth(160);
         declineBtn.setPrefWidth(160);
@@ -155,11 +146,9 @@ public class TripController {
                 UIFactory.setSuccess(resultLbl, "Job accepted! It will appear in your deliveries as PENDING.");
                 acceptBtn.setDisable(true);
                 declineBtn.setDisable(true);
-                // Refresh table in background
                 loadMyDeliveries();
-                // Close after short delay
-                javafx.animation.PauseTransition pause = new javafx.animation.PauseTransition(
-                        javafx.util.Duration.seconds(1.8));
+                javafx.animation.PauseTransition pause =
+                    new javafx.animation.PauseTransition(javafx.util.Duration.seconds(1.8));
                 pause.setOnFinished(ev -> dialogStage.close());
                 pause.play();
             }
@@ -170,17 +159,15 @@ public class TripController {
                 UIFactory.setError(resultLbl, "Job declined.");
                 acceptBtn.setDisable(true);
                 declineBtn.setDisable(true);
-                javafx.animation.PauseTransition pause = new javafx.animation.PauseTransition(
-                        javafx.util.Duration.seconds(1.5));
+                javafx.animation.PauseTransition pause =
+                    new javafx.animation.PauseTransition(javafx.util.Duration.seconds(1.5));
                 pause.setOnFinished(ev -> dialogStage.close());
                 pause.play();
             }
         });
 
         root.getChildren().addAll(icon, title, sub, details, btnRow, resultLbl);
-
-        Scene scene = new Scene(root, 460, 420);
-        dialogStage.setScene(scene);
+        dialogStage.setScene(new Scene(root, 460, 420));
         dialogStage.showAndWait();
     }
 
@@ -189,15 +176,12 @@ public class TripController {
             conn.setAutoCommit(false);
             try {
                 String newStatus = accepted ? "ACCEPTED" : "DECLINED";
-
-                // Update assignment acceptance status
                 PreparedStatement ps1 = conn.prepareStatement(
                     "UPDATE driverassignment SET acceptanceStatus=? WHERE assignmentID=?");
                 ps1.setString(1, newStatus);
                 ps1.setInt(2, assignID);
                 ps1.executeUpdate();
 
-                // Mark notification as read
                 PreparedStatement ps2 = conn.prepareStatement(
                     "UPDATE notifications SET isRead=TRUE WHERE notificationID=?");
                 ps2.setInt(1, notifID);
@@ -230,7 +214,7 @@ public class TripController {
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // DRIVER VIEW — only ACCEPTED jobs shown, driver can update status
+    // DRIVER VIEW
     // ═══════════════════════════════════════════════════════════════════════════
     private BorderPane buildDriverView() {
         BorderPane pane = new BorderPane();
@@ -257,13 +241,10 @@ public class TripController {
             deliveryTable.getColumns().add(col);
         }
 
-        // Notification bell button
         Button notifBtn = UIFactory.primaryBtn("🔔 Check New Jobs", "#F5A623");
         notifBtn.setOnAction(e -> checkAndShowNotifications());
-
         Button refresh = UIFactory.primaryBtn("⟳ Refresh", "#1E3A5F");
         refresh.setOnAction(e -> loadMyDeliveries());
-
         Label statsLabel = buildDriverStats();
 
         HBox topRow = new HBox(10, refresh, notifBtn, statsLabel);
@@ -275,7 +256,6 @@ public class TripController {
         left.setPadding(new Insets(20));
         VBox.setVgrow(deliveryTable, Priority.ALWAYS);
 
-        // Status update panel
         VBox statusPanel = UIFactory.card(24, 20);
         statusPanel.setPrefWidth(300);
 
@@ -302,8 +282,7 @@ public class TripController {
                 selectedInfo.setText(
                     "Delivery #" + sel.get(0) + "\n" +
                     sel.get(2) + "  →  " + sel.get(3) + "\n" +
-                    "Current status: " + sel.get(5)
-                );
+                    "Current status: " + sel.get(5));
                 newStatus.setValue(sel.get(5));
                 updateBtn.setDisable(false);
             }
@@ -315,7 +294,6 @@ public class TripController {
             updateDeliveryStatus(Integer.parseInt(sel.get(0)), newStatus.getValue(), selectedInfo);
         });
 
-        // Legend
         VBox legend = new VBox(6);
         legend.setPadding(new Insets(12, 0, 0, 0));
         legend.getChildren().add(UIFactory.sectionLabel("STATUS GUIDE"));
@@ -330,15 +308,10 @@ public class TripController {
         }
 
         statusPanel.getChildren().addAll(
-            panelTitle,
-            new Separator(),
-            UIFactory.sectionLabel("SELECTED DELIVERY"),
-            selectedInfo,
+            panelTitle, new Separator(),
+            UIFactory.sectionLabel("SELECTED DELIVERY"), selectedInfo,
             UIFactory.fieldGroup("SET STATUS TO", newStatus),
-            updateBtn,
-            legend,
-            feedback
-        );
+            updateBtn, legend, feedback);
 
         VBox right = new VBox(statusPanel);
         right.setPadding(new Insets(20, 20, 20, 0));
@@ -346,7 +319,6 @@ public class TripController {
         SplitPane split = new SplitPane(left, right);
         split.setDividerPositions(0.65);
         split.setStyle("-fx-background-color: #0D1B2A;");
-
         pane.setCenter(split);
         loadMyDeliveries();
         return pane;
@@ -358,7 +330,8 @@ public class TripController {
         lbl.setStyle("-fx-text-fill: #4A6FA5; -fx-font-family: 'Segoe UI'; -fx-font-size: 12;");
         if (personID <= 0) return lbl;
         try (PreparedStatement ps = DatabaseConnection.getConnection()
-                .prepareStatement("SELECT totalDeliveriesByDriver(?)")) {
+                // FIX: renamed function
+                .prepareStatement("SELECT total_deliveries_by_driver(?)")) {
             ps.setInt(1, personID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) lbl.setText("Total deliveries assigned: " + rs.getString(1));
@@ -366,7 +339,6 @@ public class TripController {
         return lbl;
     }
 
-    // Only show ACCEPTED assignments in the driver's table
     private void loadMyDeliveries() {
         if (deliveryTable == null) return;
         deliveryTable.getItems().clear();
@@ -392,11 +364,10 @@ public class TripController {
                 for (int i = 1; i <= 8; i++) row.add(rs.getString(i) == null ? "" : rs.getString(i));
                 deliveryTable.getItems().add(row);
             }
-            if (deliveryTable.getItems().isEmpty()) {
+            if (deliveryTable.getItems().isEmpty())
                 UIFactory.setError(feedback, "No active jobs. Click '🔔 Check New Jobs' if you have pending requests.");
-            } else {
+            else
                 feedback.setText("");
-            }
         } catch (SQLException e) { UIFactory.setError(feedback, e.getMessage()); }
     }
 
@@ -413,7 +384,7 @@ public class TripController {
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // ADMIN / MANAGER — full delivery management + assign with notification
+    // ADMIN / MANAGER VIEWS
     // ═══════════════════════════════════════════════════════════════════════════
     private SplitPane buildDeliveryPane() {
         deliveryTable = new TableView<>();
@@ -501,7 +472,6 @@ public class TripController {
             TableColumn<ObservableList<String>, String> col = new TableColumn<>(cols[i]);
             col.setCellValueFactory(d -> new SimpleStringProperty(
                     d.getValue().size() > idx ? d.getValue().get(idx) : ""));
-            // Colour the Accepted column
             if (i == 5) {
                 col.setCellFactory(tc -> new TableCell<>() {
                     @Override protected void updateItem(String item, boolean empty) {
@@ -509,10 +479,10 @@ public class TripController {
                         if (empty || item == null) { setText(null); return; }
                         setText(item);
                         String c = switch (item) {
-                            case "ACCEPTED"            -> "#00C896";
-                            case "DECLINED"            -> "#E05C5C";
-                            case "PENDING_ACCEPTANCE"  -> "#F5A623";
-                            default                    -> "#AECBEB";
+                            case "ACCEPTED"           -> "#00C896";
+                            case "DECLINED"           -> "#E05C5C";
+                            case "PENDING_ACCEPTANCE" -> "#F5A623";
+                            default                   -> "#AECBEB";
                         };
                         setStyle("-fx-text-fill: " + c + "; -fx-font-weight: bold;");
                     }
@@ -546,14 +516,12 @@ public class TripController {
             String delSel = deliveryCombo.getValue();
             String role   = roleCombo.getValue();
             String hours  = hoursField.getText().trim();
-
             if (dSel == null || delSel == null || hours.isEmpty()) {
                 UIFactory.setError(feedback, "Fill all fields."); return;
             }
             int personID   = Integer.parseInt(dSel.split(" \\| ")[0].trim());
             int deliveryID = Integer.parseInt(delSel.split(" \\| ")[0].trim());
             String driverName = dSel.split(" \\| ").length > 1 ? dSel.split(" \\| ")[1] : "Driver";
-
             assignDriverAndNotify(personID, deliveryID, role, hours, driverName, delSel);
         });
 
@@ -577,17 +545,17 @@ public class TripController {
         SplitPane split = new SplitPane(left, right);
         split.setDividerPositions(0.65);
         split.setStyle("-fx-background-color: #0D1B2A;");
-        loadAssignments(); return split;
+        loadAssignments();
+        return split;
     }
 
-    // ── Assign driver + create notification ──────────────────────────────────
     private void assignDriverAndNotify(int personID, int deliveryID, String role,
                                        String hours, String driverName, String delLabel) {
         try (Connection conn = DatabaseConnection.getConnection()) {
             conn.setAutoCommit(false);
             try {
-                // Call stored procedure (inserts with default PENDING_ACCEPTANCE)
-                CallableStatement cs = conn.prepareCall("{CALL assignDriverToDelivery(?,?,?,?)}");
+                // FIX: renamed procedure → assign_driver_to_delivery
+                CallableStatement cs = conn.prepareCall("{CALL assign_driver_to_delivery(?,?,?,?)}");
                 cs.setInt(1, personID);
                 cs.setInt(2, deliveryID);
                 cs.setString(3, role);
@@ -595,7 +563,6 @@ public class TripController {
                 cs.execute();
                 cs.close();
 
-                // Get the new assignment ID
                 PreparedStatement getID = conn.prepareStatement(
                     "SELECT assignmentID FROM driverassignment " +
                     "WHERE personID=? AND deliveryID=? ORDER BY assignmentID DESC LIMIT 1");
@@ -605,7 +572,6 @@ public class TripController {
                 int assignmentID = rs.getInt(1);
                 rs.close(); getID.close();
 
-                // Get delivery info for notification message
                 PreparedStatement dInfo = conn.prepareStatement(
                     "SELECT origin, destination, deliveryDate FROM delivery WHERE deliveryID=?");
                 dInfo.setInt(1, deliveryID);
@@ -618,7 +584,6 @@ public class TripController {
                 }
                 dr.close(); dInfo.close();
 
-                // Insert notification
                 String message = "Admin has assigned you to delivery #" + deliveryID +
                                  " (" + origin + " → " + destination + ") on " + date +
                                  " as " + role + ". Please accept or decline.";
@@ -745,22 +710,14 @@ public class TripController {
             try (Connection conn = DatabaseConnection.getConnection()) {
                 conn.setAutoCommit(false);
                 try {
-                    // 1. Remove notifications first
-                    PreparedStatement s1 = conn.prepareStatement(
-                        "DELETE FROM notifications WHERE deliveryID=?");
-                    s1.setInt(1, did); s1.executeUpdate();
-                    // 2. Remove driver assignments
-                    PreparedStatement s2 = conn.prepareStatement(
-                        "DELETE FROM driverassignment WHERE deliveryID=?");
-                    s2.setInt(1, did); s2.executeUpdate();
-                    // 3. Remove delivery log entries
-                    PreparedStatement s3 = conn.prepareStatement(
-                        "DELETE FROM deliverylog WHERE deliveryID=?");
-                    s3.setInt(1, did); s3.executeUpdate();
-                    // 4. Finally delete the delivery
-                    PreparedStatement s4 = conn.prepareStatement(
-                        "DELETE FROM delivery WHERE deliveryID=?");
-                    s4.setInt(1, did); s4.executeUpdate();
+                    for (String q : new String[]{
+                        "DELETE FROM notifications WHERE deliveryID=?",
+                        "DELETE FROM driverassignment WHERE deliveryID=?",
+                        "DELETE FROM deliverylog WHERE deliveryID=?",
+                        "DELETE FROM delivery WHERE deliveryID=?"}) {
+                        PreparedStatement s = conn.prepareStatement(q);
+                        s.setInt(1, did); s.executeUpdate();
+                    }
                     conn.commit();
                     UIFactory.setSuccess(feedback, "Delivery #" + did + " deleted.");
                     loadDeliveries();

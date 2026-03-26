@@ -25,6 +25,7 @@ public class DriverController {
     private TextField nameField, addressField, phoneField, dobField;
     private CheckBox ftCheck, ctCheck, fmCheck;
     private TextField ftEmpNum, ftSalary, ftHireDate;
+    // FIX: renamed to match new column names: contractNumber, hourlyRate
     private TextField ctContractNum, ctHourlyRate;
     private TextField fmLevel, fmOffice;
 
@@ -99,7 +100,6 @@ public class DriverController {
 
         HBox roles = new HBox(14, ftCheck, ctCheck, fmCheck);
 
-        // FT section
         ftEmpNum   = new TextField(); ftEmpNum.setPromptText("EMP001");
         ftSalary   = new TextField(); ftSalary.setPromptText("Monthly salary");
         ftHireDate = new TextField(); ftHireDate.setPromptText("YYYY-MM-DD");
@@ -116,7 +116,7 @@ public class DriverController {
         ftBox.managedProperty().bind(ftCheck.selectedProperty());
         ftBox.visibleProperty().bind(ftCheck.selectedProperty());
 
-        // CT section
+        // FIX: field labels updated to reflect spec column names
         ctContractNum = new TextField(); ctContractNum.setPromptText("CON001");
         ctHourlyRate  = new TextField(); ctHourlyRate.setPromptText("Hourly rate");
 
@@ -131,7 +131,6 @@ public class DriverController {
         ctBox.managedProperty().bind(ctCheck.selectedProperty());
         ctBox.visibleProperty().bind(ctCheck.selectedProperty());
 
-        // FM section
         fmLevel  = new TextField(); fmLevel.setPromptText("Junior / Senior");
         fmOffice = new TextField(); fmOffice.setPromptText("OFF-01");
 
@@ -211,8 +210,9 @@ public class DriverController {
             }
             rs.close(); ps.close();
 
+            // FIX: use renamed columns contractNumber and hourlyRate
             ps = conn.prepareStatement(
-                    "SELECT employeeNumber, salary FROM contractdriver WHERE personID=?");
+                    "SELECT contractNumber, hourlyRate FROM contractdriver WHERE personID=?");
             ps.setInt(1, personID);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -270,8 +270,9 @@ public class DriverController {
                     if (ctContractNum.getText().trim().isEmpty() || ctHourlyRate.getText().trim().isEmpty()) {
                         UIFactory.setError(feedback, "Fill contract number & hourly rate."); conn.rollback(); return;
                     }
+                    // FIX: INSERT uses renamed columns contractNumber and hourlyRate
                     PreparedStatement ctPs = conn.prepareStatement(
-                        "INSERT INTO contractdriver (personID, employeeNumber, salary) VALUES (?,?,?)");
+                        "INSERT INTO contractdriver (personID, contractNumber, hourlyRate) VALUES (?,?,?)");
                     ctPs.setInt(1, pid);
                     ctPs.setString(2, ctContractNum.getText().trim());
                     ctPs.setDouble(3, Double.parseDouble(ctHourlyRate.getText().trim()));
@@ -319,30 +320,24 @@ public class DriverController {
             try (Connection conn = DatabaseConnection.getConnection()) {
                 conn.setAutoCommit(false);
                 try {
-                    // 1. Remove from driversupervision (supervisor OR supervisee)
                     PreparedStatement s1 = conn.prepareStatement(
                         "DELETE FROM driversupervision WHERE supervisorID=? OR superviseeID=?");
                     s1.setInt(1, pid); s1.setInt(2, pid); s1.executeUpdate();
 
-                    // 2. Remove from driverassignment
                     PreparedStatement s2 = conn.prepareStatement(
                         "DELETE FROM driverassignment WHERE personID=?");
                     s2.setInt(1, pid); s2.executeUpdate();
 
-                    // 3. Remove from app_users (unlink login)
                     PreparedStatement s3 = conn.prepareStatement(
                         "DELETE FROM app_users WHERE personID=?");
                     s3.setInt(1, pid); s3.executeUpdate();
 
-                    // 4. Remove role sub-tables (FK → person, ON DELETE CASCADE handles these
-                    //    but we delete explicitly to be safe)
                     for (String tbl : new String[]{"fulltimedriver","contractdriver","fleetmanager"}) {
                         PreparedStatement sx = conn.prepareStatement(
                             "DELETE FROM " + tbl + " WHERE personID=?");
                         sx.setInt(1, pid); sx.executeUpdate();
                     }
 
-                    // 5. Finally delete the person
                     PreparedStatement s5 = conn.prepareStatement(
                         "DELETE FROM person WHERE personID=?");
                     s5.setInt(1, pid); s5.executeUpdate();

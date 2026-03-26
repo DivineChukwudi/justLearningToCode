@@ -107,13 +107,14 @@ public class ReportsController {
         Label sub = new Label("total deliveries");
         sub.setStyle("-fx-text-fill: #4A6FA5; -fx-font-family: 'Segoe UI'; -fx-font-size: 14;");
 
-        Button runBtn = UIFactory.primaryBtn("Run  totalDeliveriesByDriver()", "#9B59B6");
+        Button runBtn = UIFactory.primaryBtn("Run  total_deliveries_by_driver()", "#9B59B6");
         runBtn.setOnAction(e -> {
             String sel = driverCombo.getValue();
             if (sel == null) return;
             int pid = Integer.parseInt(sel.split(" \\| ")[0].trim());
             try (PreparedStatement ps = DatabaseConnection.getConnection()
-                    .prepareStatement("SELECT totalDeliveriesByDriver(?)")) {
+                    // FIX: renamed function → total_deliveries_by_driver
+                    .prepareStatement("SELECT total_deliveries_by_driver(?)")) {
                 ps.setInt(1, pid);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) result.setText(rs.getString(1));
@@ -125,7 +126,7 @@ public class ReportsController {
         resultBox.setPadding(new Insets(20));
 
         VBox vb = new VBox(20,
-            UIFactory.sectionLabel("Function: totalDeliveriesByDriver(personID)"),
+            UIFactory.sectionLabel("Function: total_deliveries_by_driver(person_id)"),
             UIFactory.fieldGroup("SELECT DRIVER", driverCombo),
             runBtn, resultBox, feedback
         );
@@ -152,13 +153,14 @@ public class ReportsController {
         Label sub = new Label("total maintenance cost");
         sub.setStyle("-fx-text-fill: #4A6FA5; -fx-font-family: 'Segoe UI'; -fx-font-size: 14;");
 
-        Button runBtn = UIFactory.primaryBtn("Run  vehicleTotalMaintenance()", "#9B59B6");
+        Button runBtn = UIFactory.primaryBtn("Run  vehicle_total_maintenance()", "#9B59B6");
         runBtn.setOnAction(e -> {
             String sel = vehicleCombo.getValue();
             if (sel == null) return;
             int vid = Integer.parseInt(sel.split(" \\| ")[0].trim());
             try (PreparedStatement ps = DatabaseConnection.getConnection()
-                    .prepareStatement("SELECT vehicleTotalMaintenance(?)")) {
+                    // FIX: renamed function → vehicle_total_maintenance
+                    .prepareStatement("SELECT vehicle_total_maintenance(?)")) {
                 ps.setInt(1, vid);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) result.setText("M " + rs.getString(1));
@@ -170,7 +172,7 @@ public class ReportsController {
         resultBox.setPadding(new Insets(20));
 
         VBox vb = new VBox(20,
-            UIFactory.sectionLabel("Function: vehicleTotalMaintenance(vehicleID)"),
+            UIFactory.sectionLabel("Function: vehicle_total_maintenance(vehicle_id)"),
             UIFactory.fieldGroup("SELECT VEHICLE", vehicleCombo),
             runBtn, resultBox, feedback
         );

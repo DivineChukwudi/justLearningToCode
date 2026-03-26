@@ -88,9 +88,7 @@ public class LoginScreenPanel extends JPanel {
         hints.setBackground(new Color(20, 28, 42));
         hints.setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
         for (String h2 : new String[]{
-                "admin_thabo / Admin@1234  [admin]",
-                "thabo / Driver@1  •  palesa / Driver@2",
-                "kamohelo / Driver@4  •  tsepiso / Driver@5"}) {
+                }) {
             JLabel hl = new JLabel(h2, SwingConstants.CENTER);
             hl.setFont(new Font("Consolas", Font.PLAIN, 10));
             hl.setForeground(UIHelper.DIM);
